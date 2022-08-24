@@ -1,30 +1,29 @@
 package br.com.fiap.epictaskapi.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.epictaskapi.model.Task;
-import br.com.fiap.epictaskapi.repository.TaskRepository;
+import br.com.fiap.epictaskapi.model.User;
+import br.com.fiap.epictaskapi.repository.UserRepository;
 
 @Service
-public class TaskService {
+public class UserService {
     
     @Autowired
-    TaskRepository repository;
+    UserRepository repository;
 
-    public List<Task> listAll(){
-       return repository.findAll();
+    public List<User> listAll(){
+        return repository.findAll();
     }
 
-    public void save(Task task) {
+    public void save(User task) {
         repository.save(task);
     }
 
-    public Optional<Task> getById(Long id) {
+    public Optional<User> getById(Long id) {
         return repository.findById(id);
     }
 

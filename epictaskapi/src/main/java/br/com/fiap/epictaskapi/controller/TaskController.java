@@ -42,14 +42,15 @@ public class TaskController {
     @GetMapping("{id}")
     public ResponseEntity<Task> show(@PathVariable Long id){
         return ResponseEntity.of(service.getById(id));
-    } 
+    }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Object> destroy(@PathVariable Long id){
 
         Optional<Task> optional = service.getById(id);
 
-        if (optional.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if(optional.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         service.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -57,21 +58,21 @@ public class TaskController {
 
     @PutMapping("{id}")
     public ResponseEntity<Task> update(@PathVariable Long id, @RequestBody @Valid Task newTask){
-        //Buscar a tarefa no BD
+        // buscar a tarefa no BD
         Optional<Task> optional = service.getById(id);
-       
-        //Verificar se existe
-        if (optional.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-       
-        //Atualizar os dados
-        Task task = optional.get();
+
+        // verificar se existe tarefa com esse id
+        if(optional.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        // atualizar os dados no objeto
+        var task = optional.get();
         BeanUtils.copyProperties(newTask, task);
         task.setId(id);
-       
-        //Salvar o BD
-        service.save(task);       
+
+        // salvar no BD
+        service.save(task);
+
         return ResponseEntity.ok(task);
-
     }
-
 }

@@ -10,4 +10,6 @@ public class EpictaskapiApplication {
 		SpringApplication.run(EpictaskapiApplication.class, args);
 	}
 
+	
+
 }
